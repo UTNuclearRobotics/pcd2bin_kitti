@@ -1,5 +1,8 @@
 ## PCD to KITTI binary converter
 
+This repository is part of my pipeline to convert the pointcloud data of 5 x Livox Horizon LiDARs into the "semantic KITTI" format.\
+See Instructions here: [LINK](https://gist.github.com/nerovalerius/80133f409f9ed0573522432244298195).
+
 Convert .pcd pointcloud files into KITTI binary files.\
 This is a fork of [LINK](https://github.com/leofansq/Tools_RosBag2KITTI/tree/master/pcd2bin). \
 All credits go to the original author.
