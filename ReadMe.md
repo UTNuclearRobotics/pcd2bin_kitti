@@ -9,7 +9,7 @@ All credits go to the original author.
 1. Clone this repository into your ros2 workspace's src folder
 ```
 cd ~/ros2_ws/src
-git clone https://github.com/nerovalerius/pcd2bin_KITTI
+git clone https://github.com/nerovalerius/pcd2bin_kitti
 ```
 
 Change the paths inside ``src/pcd2bin.cpp``` to the corresponding paths of your setup. 
@@ -30,5 +30,5 @@ colcon build
 Source workspace and run the node:
 ```
 source ~/ros2_ws/install/setup.bash
-ros2 run pcd2bin_KITTI pcd2bin
+ros2 run pcd2bin_kitti pcd2bin
 ```
