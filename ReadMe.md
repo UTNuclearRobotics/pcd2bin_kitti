@@ -1,62 +1,34 @@
-## About
+## PCD to KITTI binary converter
 
-2D images and 3D points cloud are the two most commonly used data of intelligent vehicles, which are usually recorded in ROSBAG format via the ROS system in actual engineering practice. However, the visual and LiDAR data in the public dataset (e.g. KITTI) for research are saved as .png and .bin files respectively. To bridge the gap between engineering and research, this repository provides a tool to get .png and .bin from .bag. 
+Convert .pcd pointcloud files into KITTI binary files.\
+This is a fork of [LINK](https://github.com/leofansq/Tools_RosBag2KITTI/tree/master/pcd2bin). \
+All credits go to the original author.
 
-## How to use
+## Instructions
 
-### (1) Decode ROSABG
+1. Clone this repository into your ros2 workspace's src folder
+```
+cd ~/ros2_ws/src
+git clone https://github.com/nerovalerius/pcd2bin_KITTI
+```
 
-The recorded ROSBAG are firstly decoded into .png for image and .pcd for points cloud.
+Change the paths inside ``src/pcd2bin.cpp``` to the corresponding paths of your setup. 
 
-* Build the project in the ROS workspace
-	```bash
-	cd catkin_ws
-	catkin_make
-	```
+e.g.:
 
-* [Optional] Setup the parameters in [map_generation_node.cpp](/catkin_ws/src/obstacle_detection/src/map_generation_node.cpp) to achieve the rotation and translation of the coordinate system. 
-	> All parameters for the rotation are angular and the clockwise is positive.
+```
+std::string bin_path = "/home/user/dataset/pointclouds_binary/";
+std::string pcd_path = "/home/user/dataset/pointclouds/";
+```
 
-* Decode ROSBAG to .png and .pcd, the results are saved in [output](/catkin_ws/output).
-	```bash
-	# 1st terminal for ROS core
-	roscore
-	# 2nd terminal for decoding node
-	./devel/lib/obstacle_detection/map_generate
-	# 3rd terminal for ROSBAG playing, 0.1 means 0.1 times speed
-	rosbag play xxx.bag -r 0.1
-	```
-	> The actual play speed of ROSBAG is determined by the IO performance. Please adjust the speed to ensure the timestamps are within +/- 50 ms.
+Build the node:
+```
+cd ~/ros2_ws
+colcon build
+```
 
-### (2) Convert .pcd to .bin
-
-The points cloud is further converted from .pcd to .bin.
-
-* Build the project
-	```bash
-	mkdir CMakeFile
-	cd CMakeFile
-	cmake ..
-	make
-	```
-
-* Setup: Move the .pcd files to [pcd](/pcd2bin/pcd), and set the path in [pcd2bin.cpp](/pcd2bin/pcd2bin.cpp).
-
-* Convertion
-	```bash
-	cd CMakeFile
-	./pcd2bin
-	```
-	> The results are saved in [bin](/pcd2bin/bin).
-
-### (3) Create file list
-
-Generate the list of the subset files for training or validation, e.g. train.txt and val.txt in KITTI.
-
-* Get the file list
-	```bash
-	cd bin
-	ls -1 | grep ".bin$" > list.txt
-	python get_list.py
-	```
-	> The results are saved in [bin](/pcd2bin/bin) named *files_list.txt*.
+Source workspace and run the node:
+```
+source ~/ros2_ws/install/setup.bash
+ros2 run pcd2bin_KITTI pcd2bin
+```
