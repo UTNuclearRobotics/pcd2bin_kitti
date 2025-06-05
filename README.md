@@ -15,14 +15,6 @@ cd ~/ros2_ws/src
 git clone https://github.com/nerovalerius/pcd2bin_kitti
 ```
 
-Change the paths inside ``src/pcd2bin.cpp``` to the corresponding paths of your setup. 
-
-e.g.:
-
-```
-std::string bin_path = "/home/user/dataset/pointclouds_binary/";
-std::string pcd_path = "/home/user/dataset/pointclouds/";
-```
 
 Build the node:
 ```
@@ -35,3 +27,5 @@ Source workspace and run the node:
 source ~/ros2_ws/install/setup.bash
 ros2 run pcd2bin_kitti pcd2bin
 ```
+
+Provide the PCD and BIN directories as command line arguments.
