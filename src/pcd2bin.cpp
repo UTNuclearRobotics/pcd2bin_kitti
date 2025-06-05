@@ -84,9 +84,19 @@ void sort_filelists(std::vector<std::string>& filists,std::string type)
 
 int main(int argc, char **argv)
 {
+     if (argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <pcd_input_dir> <bin_output_dir>" << std::endl;
+        return 1;
+    }
+
     //Set the file path
-    std::string bin_path = "/home/nero/master/pointclouds_binary/";
-    std::string pcd_path = "/home/nero/master/pointclouds/";
+    std::string bin_path = argv[1];
+    std::string pcd_path = argv[2];
+
+        // Ensure trailing slashes
+    if (pcd_path.back() != '/') pcd_path += '/';
+    if (bin_path.back() != '/') bin_path += '/';
+
     //Read file lists of specific type
     read_filelists( pcd_path, file_lists, "pcd" );
     sort_filelists( file_lists, "pcd" );
